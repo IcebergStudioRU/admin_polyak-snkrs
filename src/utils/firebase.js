@@ -56,7 +56,6 @@ export const addProductPhoto = (formState, imageUpload, uploadImageNumber) => {
   // return getDownloadURL(imageRef);
 }; 
 
-
 export const deleteProductPhoto = (formState, imageUpload) => {
   const imagePath = `Sneakers/${formState.brand}/${formState.model}/${
     imageUpload.name
