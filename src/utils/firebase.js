@@ -54,7 +54,8 @@ export const addProductPhoto = (formState, imageUpload, uploadImageNumber) => {
   return uploadBytes(imageRef, imageUpload).then((response) => getDownloadURL(response.ref))
   // uploadBytes(imageRef, imageUpload);
   // return getDownloadURL(imageRef);
-};
+}; 
+
 
 export const deleteProductPhoto = (formState, imageUpload) => {
   const imagePath = `Sneakers/${formState.brand}/${formState.model}/${
