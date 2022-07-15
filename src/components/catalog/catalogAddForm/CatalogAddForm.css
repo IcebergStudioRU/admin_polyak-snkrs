@@ -1,0 +1,55 @@
+.catalogAddForm_overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 100;
+}
+.catalogAddForm_container {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.catalogAddForm_backBtn {
+    background-color: transparent;
+    color: white;
+    border: none;
+}
+
+.catalogAddForm_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.catalogAddForm_label {
+  color: white;
+  margin-bottom: 15px;
+}
+.catalogAddForm_input {
+  display: block;
+  background-color: transparent;
+  border: 2px solid white;
+  color: white;
+}
+
+.catalogAddForm_textarea {
+  display: block;
+  background-color: transparent;
+  border: 2px solid white;
+  width: 100%;
+  color: white;
+}
+
+.catalogAddForm_textarea::placeholder {
+    color: white;
+}
+
+.catalogAddForm_button {
+  background-color: transparent;
+  border: 2px solid white;
+  color: white;
+}

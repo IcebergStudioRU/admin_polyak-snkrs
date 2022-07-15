@@ -1,0 +1,17 @@
+.header_container{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: solid 2px;
+
+}
+
+.header_pages_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header_page {
+    font-family: var(--font);
+    font-weight: 500
+}
