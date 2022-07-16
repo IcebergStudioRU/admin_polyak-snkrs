@@ -25,7 +25,7 @@
     right: -10px;
     border-radius: 50%;
     border: none;
-    background-color: red;
+    background-color: rgb(0, 0, 0);
     color: white;
     font-weight: 600;
     font-size: 15px;
@@ -45,7 +45,8 @@
   font-family: var(--font);
   font-style: normal;
   font-weight: var(--l-fw);
-  font-size: 12px;
+  font-size: 24px;
+  text-align: center;
   line-height: 36px;
   color: #000000;
   margin-bottom: 10px;
@@ -54,9 +55,11 @@
   font-family: var(--font);
   font-style: normal;
   font-weight: var(--l-fw);
-  font-size: 14px;
+  font-size: 18px;
   line-height: 21px;
   color: #000000;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 .catalog_addNewProduct-container {
@@ -67,7 +70,20 @@
   justify-content: center;
   align-items: center;
 }
-
+.editProduct_btn{
+  background-color: transparent;
+  border: 1px solid rgb(0, 0, 0);
+  color: rgb(0, 0, 0);
+  width: 120px;
+  height: 25px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.editProduct_btn-container{
+  display: flex;
+  justify-content: center;
+}
 .catalog_addNewProduct-p {
     font-size: 80px;
     line-height: 100%;
