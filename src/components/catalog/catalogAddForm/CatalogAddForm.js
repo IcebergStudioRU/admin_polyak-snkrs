@@ -22,8 +22,50 @@ const CatalogAddForm = ({ setCatalogForms }) => {
   const [imageUpload, setImageUpload] = useState([""]);
   const [fileReader, setFileReader] = useState([""]);
   // console.log(fileReader);
-  // console.log(imageUpload);
-  console.log(formState);
+  console.log(imageUpload);
+  // console.log(formState);
+  const moveInputUp = (e) => {
+    const number = e.target.id;
+
+    setFormState((prev) => {
+      const newImages = [...prev.images];
+      if (number === 0) {
+        newImages[number] = prev.images[prev.images.length - 1];
+        newImages[prev.images.length - 1] = prev.images[number];
+      } else {
+        newImages[number] = prev.images[number - 1];
+        newImages[number - 1] = prev.images[number];
+      }
+
+      return { ...prev, images: newImages };
+    });
+    setImageUpload((prev) => {
+      const newState = [prev];
+      
+      if (number === 0) {
+        newState[number] = prev[1];
+        newState[1] = prev[number];
+      } else {
+        newState[number] = prev[number - 1];
+        newState[number - 1] = prev[number];
+      }
+      return newState;
+    });
+    setFileReader((prev) => {
+      const newState = [prev];
+      if (number === 0) {
+        newState[number] = prev[1];
+        newState[1] = prev[number];
+      } else {
+        newState[number] = prev[number - 1];
+        newState[number - 1] = prev[number];
+      }
+
+      return newState;
+    });
+  };
+
+  const moveInputDown = () => {};
 
   const uploadImage = (e) => {
     if (
@@ -200,6 +242,18 @@ const CatalogAddForm = ({ setCatalogForms }) => {
                   ? "Удалить из хранилища"
                   : "Добавить в хранилище"}
               </button>
+              <div>
+                <button id={number} onClick={moveInputUp}>
+                  &#8593;
+                </button>
+                <button
+                  id={number}
+                  onClick={moveInputDown}
+                  style={{ display: "flex" }}
+                >
+                  &#8595;
+                </button>
+              </div>
               <img src={fileReader[number]} alt="" />
             </label>
           ))}
