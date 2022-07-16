@@ -50,7 +50,7 @@ const Catalog = () => {
                 <img
                   className="productList_image"
                   alt="sneakers"
-                  src={product.catalogImage}
+                  src={product.images[0]}
                 />
               </div>
               <p className="productList_name_product">

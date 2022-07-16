@@ -4,7 +4,8 @@ import { addProduct, deleteProduct } from "../../../utils/firebase";
 
 const CatalogEditForm = ({ editProduct, setCatalogForms }) => {
   const [formState, setFormState] = useState(editProduct);
-  const [imagesInputNumber, setImagesInputNumber] = useState([0]);
+  const [imageUpload, setImageUpload] = useState([""]);
+  const [fileReader, setFileReader] = useState([""]);
 
   const onHandleSubmit = (e) => {
     e.preventDefault();
@@ -34,15 +35,15 @@ const CatalogEditForm = ({ editProduct, setCatalogForms }) => {
     });
   };
 
-  const addImageInput = () => {
-    setImagesInputNumber((prev) => [...prev, prev.length]);
-  };
+  // const addImageInput = () => {
+  //   setImagesInputNumber((prev) => [...prev, prev.length]);
+  // };
 
-  const deleteImageInput = () => {
-    if (imagesInputNumber.length > 1) {
-      setImagesInputNumber((prev) => [...prev.slice(0, -1)]);
-    }
-  };
+  // const deleteImageInput = () => {
+  //   if (imagesInputNumber.length > 1) {
+  //     setImagesInputNumber((prev) => [...prev.slice(0, -1)]);
+  //   }
+  // };
   return (
     <div className="catalogAddForm_overlay">
       <div className="container catalogAddForm_container">
@@ -98,17 +99,7 @@ const CatalogEditForm = ({ editProduct, setCatalogForms }) => {
               required
             />
           </label>
-          <label className="catalogAddForm_label" htmlFor="catalogImage">
-            Catalog Image:
-            <input
-              className="catalogAddForm_input"
-              onChange={onHandleChange}
-              value={formState.catalogImage}
-              name="catalogImage"
-              type="text"
-            />
-          </label>
-          {imagesInputNumber.map((number) => (
+          {/* {imagesInputNumber.map((number) => (
             <>
               <label className="catalogAddForm_label" htmlFor="images">
                 Images:
@@ -123,21 +114,21 @@ const CatalogEditForm = ({ editProduct, setCatalogForms }) => {
                 />
               </label>
             </>
-          ))}
+          ))} */}
 
           <button
             className="catalogAddForm_button"
-            onClick={addImageInput}
+            // onClick={addImageInput}
             type="button"
           >
-            Добавить изображение
+            Добавить поле ввода для изображения
           </button>
           <button
             className="catalogAddForm_button"
-            onClick={deleteImageInput}
+            // onClick={deleteImageInput}
             type="button"
           >
-            Отменить добавление
+            Удалить поле ввода для изображения
           </button>
 
           <label className="catalogAddForm_label" htmlFor="description">

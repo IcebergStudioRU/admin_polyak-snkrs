@@ -11,61 +11,60 @@ const initialState = {
   brand: "",
   model: "",
   price: "",
-  catalogImage: "",
-  images: [""],
+  images: [{}],
   description: "",
 };
 
 const CatalogAddForm = ({ setCatalogForms }) => {
   const [formState, setFormState] = useState(initialState);
-  const [imagesInputNumber, setImagesInputNumber] = useState([0]);
   const [imageUpload, setImageUpload] = useState([""]);
   const [fileReader, setFileReader] = useState([""]);
-  // console.log(fileReader);
-  console.log(imageUpload);
-  // console.log(formState);
+
   const moveInputUp = (e) => {
     const number = e.target.id;
 
     setFormState((prev) => {
       const newImages = [...prev.images];
-      if (number === 0) {
-        newImages[number] = prev.images[prev.images.length - 1];
-        newImages[prev.images.length - 1] = prev.images[number];
-      } else {
-        newImages[number] = prev.images[number - 1];
-        newImages[number - 1] = prev.images[number];
-      }
-
+      newImages[number] = prev.images[number - 1];
+      newImages[number - 1] = prev.images[number];
       return { ...prev, images: newImages };
     });
     setImageUpload((prev) => {
       const newState = [prev];
-      
-      if (number === 0) {
-        newState[number] = prev[1];
-        newState[1] = prev[number];
-      } else {
-        newState[number] = prev[number - 1];
-        newState[number - 1] = prev[number];
-      }
+      newState[number] = prev[number - 1];
+      newState[number - 1] = prev[number];
       return newState;
     });
     setFileReader((prev) => {
       const newState = [prev];
-      if (number === 0) {
-        newState[number] = prev[1];
-        newState[1] = prev[number];
-      } else {
-        newState[number] = prev[number - 1];
-        newState[number - 1] = prev[number];
-      }
-
+      newState[number] = prev[number - 1];
+      newState[number - 1] = prev[number];
       return newState;
     });
   };
 
-  const moveInputDown = () => {};
+  const moveInputDown = (e) => {
+    const number = e.target.id;
+
+    setFormState((prev) => {
+      const newImages = [...prev.images];
+      newImages[number] = prev.images[number + 1];
+      newImages[number + 1] = prev.images[number];
+      return { ...prev, images: newImages };
+    });
+    setImageUpload((prev) => {
+      const newState = [prev];
+      newState[number] = prev[number + 1];
+      newState[number + 1] = prev[number];
+      return newState;
+    });
+    setFileReader((prev) => {
+      const newState = [prev];
+      newState[number] = prev[number + 1];
+      newState[number + 1] = prev[number];
+      return newState;
+    });
+  };
 
   const uploadImage = (e) => {
     if (
@@ -80,7 +79,10 @@ const CatalogAddForm = ({ setCatalogForms }) => {
         (response) => {
           setFormState((prev) => {
             const newImages = [...prev.images];
-            newImages[uploadImageNumber] = response;
+            newImages[uploadImageNumber] = {
+              link: response,
+              path: `Sneakers/${formState.brand}/${formState.model}/${imageUpload[uploadImageNumber].name}`,
+            };
             return { ...prev, images: newImages };
           });
         }
@@ -99,12 +101,6 @@ const CatalogAddForm = ({ setCatalogForms }) => {
   const onHandleSubmit = (e) => {
     e.preventDefault();
     addProduct({ ...formState, price: parseInt(formState.price, 0) });
-    // setFormState({ ...initialState,  });
-    // setImagesInputNumber([]);
-    // setImagesInputNumber([0])
-    // setFileReader([""])
-    // setImageUpload([""])
-    // window.location.reload(false)
     alert("Товар успешно добавлен");
     onModalBack();
   };
@@ -120,7 +116,7 @@ const CatalogAddForm = ({ setCatalogForms }) => {
       edit: false,
     });
   };
-  const stylee = {}
+  const stylee = {};
   const onInputUpload = (e) => {
     const file = e.target.files[0];
     const number = e.target.id;
@@ -141,7 +137,6 @@ const CatalogAddForm = ({ setCatalogForms }) => {
   };
 
   const addImageInput = () => {
-    setImagesInputNumber((prev) => [...prev, prev.length]);
     setFileReader((prev) => [...prev, ""]);
     setImageUpload((prev) => [...prev, ""]);
     setFormState((prev) => {
@@ -151,8 +146,7 @@ const CatalogAddForm = ({ setCatalogForms }) => {
   };
 
   const deleteImageInput = () => {
-    if (imagesInputNumber.length > 1) {
-      setImagesInputNumber((prev) => [...prev.slice(0, -1)]);
+    if (formState.images.length > 1) {
       setImageUpload((prev) => [...prev.slice(0, -1)]);
       setFileReader((prev) => [...prev.slice(0, -1)]);
       setFormState((prev) => {
@@ -218,64 +212,10 @@ const CatalogAddForm = ({ setCatalogForms }) => {
               required
             />
           </label>
-          <label className="catalogAddForm_label" htmlFor="catalogImage">
-            Catalog Image:
-            <input
-              className="catalogAddForm_input"
-              onChange={onHandleChange}
-              value={formState.catalogImage}
-              name="catalogImage"
-              type="text"
-              required
-            />
-          </label>
-          {imagesInputNumber.map((number) => (
-          <div className="catalogAddForm_container">
-            
-              <input
-                id={number}
-                type="file"
-                onChange={onInputUpload}
-                required
-                name="file"
-                className="catalogAddForm_file-input"/>
-              <button id={number} type="button" onClick={uploadImage} className="catalogAddForm_addedInData-btn">
-                {formState.images[number]
-                  ? "Удалить из хранилища"
-                  : "Добавить в хранилище"}
-              </button>
-              <div>
-                <button id={number} onClick={moveInputUp}>
-                  &#8593;
-                </button>
-                <button
-                  id={number}
-                  onClick={moveInputDown}
-                  style={{ display: "flex" }}
-                >
-                  &#8595;
-                </button>
-              </div>
-              <img src={fileReader[number]} alt="" className="catalogAddForm_product-img"/>
-            </label>
-          ))}
-          <button
-            className="catalogAddForm_button"
-            onClick={addImageInput}
-            type="button"
-          >
-            Добавить изображение
-          </button>
-          <button
-            className="catalogAddForm_button"
-            onClick={deleteImageInput}
-            type="button"
-          >
-            Отменить добавление
-          </button>
-
           <label className="catalogAddForm_label" for="description">
-            <span className="catalogAddFrom_descriptionTitle">Описание товара</span>
+            <span className="catalogAddFrom_descriptionTitle">
+              Описание товара
+            </span>
             <textarea
               className="catalogAddForm_textarea"
               onChange={onHandleChange}
@@ -285,8 +225,77 @@ const CatalogAddForm = ({ setCatalogForms }) => {
               required
             ></textarea>
           </label>
+          {formState.images.map((image, number) => (
+            <label className="catalogAddForm_containerr">
+              <label className="catalogAddForm_label-fieInput">
+                Выбрать файл
+                <input
+                  id={number}
+                  type="file"
+                  onChange={onInputUpload}
+                  required
+                  name="filen"
+                  className="catalogAddForm_file-input"
+                />
+              </label>
 
-          <button className="catalogAddForm_button" type="submit">
+              <button
+                id={number}
+                type="button"
+                onClick={uploadImage}
+                className="catalogAddForm_addedInData-btn"
+              >
+                {formState.images[number]
+                  ? "Удалить из хранилища"
+                  : "Добавить в хранилище"}
+              </button>
+
+              <div>
+                {number !== 0 && formState.images.length !== 0 && (
+                  <button
+                    id={number}
+                    onClick={moveInputUp}
+                    className="catalogAddForm_up-btn"
+                  >
+                    &#8593;
+                  </button>
+                )}
+
+                {number !== formState.images.length - 1 &&
+                  formState.images.length !== 0 && (
+                    <button
+                      id={number}
+                      onClick={moveInputDown}
+                      className="catalogAddForm_down-btn"
+                    >
+                      &#8595;
+                    </button>
+                  )}
+                <img
+                  src={fileReader[number]}
+                  alt=""
+                  className="catalogAddForm_product-img"
+                />
+              </div>
+            </label>
+          ))}
+
+          <button
+            className="catalogAddForm_addField-button"
+            onClick={addImageInput}
+            type="button"
+          >
+            Добавить поле ввода для изображения
+          </button>
+          <button
+            className="catalogAddForm_delField-button"
+            onClick={deleteImageInput}
+            type="button"
+          >
+            Удалить поле ввода для изображения
+          </button>
+
+          <button className="catalogAddForm_addNewProduct-button" type="submit">
             Add a new product
           </button>
         </form>
