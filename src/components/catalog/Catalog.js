@@ -58,7 +58,9 @@ const Catalog = () => {
                 <span>{product.model}</span>
               </p>
               <p className="productList_price_product">{product.price} ₽</p>
-              <button type="button" onClick={() => openForm("edit", product)}>Edit Product</button>
+              <div className="editProduct_btn-container">
+                <button type="button" onClick={() => openForm("edit", product)} className="editProduct_btn">Edit Product</button>
+              </div>
             </li>
           ))}
           <li

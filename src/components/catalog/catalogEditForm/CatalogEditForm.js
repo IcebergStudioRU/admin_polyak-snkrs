@@ -130,14 +130,14 @@ const CatalogEditForm = ({ editProduct, setCatalogForms }) => {
             onClick={addImageInput}
             type="button"
           >
-            Добавить еще одно изображение
+            Добавить изображение
           </button>
           <button
             className="catalogAddForm_button"
             onClick={deleteImageInput}
             type="button"
           >
-            Удалить поле ввода для изображения
+            Отменить добавление
           </button>
 
           <label className="catalogAddForm_label" htmlFor="description">

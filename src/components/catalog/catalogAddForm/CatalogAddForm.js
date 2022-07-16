@@ -120,7 +120,7 @@ const CatalogAddForm = ({ setCatalogForms }) => {
       edit: false,
     });
   };
-
+  const stylee = {}
   const onInputUpload = (e) => {
     const file = e.target.files[0];
     const number = e.target.id;
@@ -230,14 +230,16 @@ const CatalogAddForm = ({ setCatalogForms }) => {
             />
           </label>
           {imagesInputNumber.map((number) => (
-            <label>
+          <div className="catalogAddForm_container">
+            
               <input
                 id={number}
                 type="file"
                 onChange={onInputUpload}
                 required
-              />
-              <button id={number} type="button" onClick={uploadImage}>
+                name="file"
+                className="catalogAddForm_file-input"/>
+              <button id={number} type="button" onClick={uploadImage} className="catalogAddForm_addedInData-btn">
                 {formState.images[number]
                   ? "Удалить из хранилища"
                   : "Добавить в хранилище"}
@@ -254,27 +256,26 @@ const CatalogAddForm = ({ setCatalogForms }) => {
                   &#8595;
                 </button>
               </div>
-              <img src={fileReader[number]} alt="" />
+              <img src={fileReader[number]} alt="" className="catalogAddForm_product-img"/>
             </label>
           ))}
-
           <button
             className="catalogAddForm_button"
             onClick={addImageInput}
             type="button"
           >
-            Добавить еще одно изображение
+            Добавить изображение
           </button>
           <button
             className="catalogAddForm_button"
             onClick={deleteImageInput}
             type="button"
           >
-            Удалить поле ввода для изображения
+            Отменить добавление
           </button>
 
           <label className="catalogAddForm_label" for="description">
-            Описание товара
+            <span className="catalogAddFrom_descriptionTitle">Описание товара</span>
             <textarea
               className="catalogAddForm_textarea"
               onChange={onHandleChange}
