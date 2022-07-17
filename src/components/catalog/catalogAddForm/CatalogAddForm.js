@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { ReactComponent as File } from "./svg/file.svg";
+import { ReactComponent as Save } from "./svg/save.svg";
 import {
   addProduct,
   addProductPhoto,
@@ -226,9 +228,9 @@ const CatalogAddForm = ({ setCatalogForms }) => {
             ></textarea>
           </label>
           {formState.images.map((image, number) => (
-            <label className="catalogAddForm_containerr">
+            <div className="catalogAddForm_containerr">
               <label className="catalogAddForm_label-fieInput">
-                Выбрать файл
+                <File/>
                 <input
                   id={number}
                   type="file"
@@ -238,18 +240,6 @@ const CatalogAddForm = ({ setCatalogForms }) => {
                   className="catalogAddForm_file-input"
                 />
               </label>
-
-              <button
-                id={number}
-                type="button"
-                onClick={uploadImage}
-                className="catalogAddForm_addedInData-btn"
-              >
-                {formState.images[number]
-                  ? "Удалить из хранилища"
-                  : "Добавить в хранилище"}
-              </button>
-
               <div>
                 {number !== 0 && formState.images.length !== 0 && (
                   <button
@@ -259,8 +249,13 @@ const CatalogAddForm = ({ setCatalogForms }) => {
                   >
                     &#8593;
                   </button>
+                  
                 )}
-
+                <img
+                  src={fileReader[number]}
+                  alt=""
+                  className="catalogAddForm_product-img"
+                />
                 {number !== formState.images.length - 1 &&
                   formState.images.length !== 0 && (
                     <button
@@ -271,13 +266,22 @@ const CatalogAddForm = ({ setCatalogForms }) => {
                       &#8595;
                     </button>
                   )}
-                <img
-                  src={fileReader[number]}
-                  alt=""
-                  className="catalogAddForm_product-img"
-                />
+                
               </div>
-            </label>
+            <div>
+              <button
+                id={number}
+                type="button"
+                onClick={uploadImage}
+                className="catalogAddForm_addedInData-btn"
+              >
+                {formState.images[number]
+                  ?   `×`
+                  : <Save/>}
+              </button>
+              </div>
+              
+            </div>
           ))}
 
           <button
